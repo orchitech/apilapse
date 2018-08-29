@@ -27,5 +27,8 @@
     <p ng-if="issue.data.prio" title="Priority: {{ issue.data.prio }}" class="prio">
       {{ issue.data.prio }}
     </p>
+    <p ng-if="issue.subissues.length !== 0" title="Sub-issues: / {{ issue.subissues.length }}" class="subtasks">
+      Sub-issues: / {{ issue.subissues.length }}
+    </p>
   </div>
 </div>

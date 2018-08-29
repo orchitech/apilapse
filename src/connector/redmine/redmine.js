@@ -264,6 +264,8 @@ angular
         if ('version' in bind) {params.fixed_version_id = bind.version}
         if (!('includeSubprojects' in bind) || !bind.includeSubprojects) {
           params.subproject_id = "!*"
+        } else {
+          params.subproject_id = "*"
         }
 
         params.key    = connection.creds.key
@@ -296,7 +298,7 @@ angular
               }
 
               var issue = new RedmineIssue(connection, bind, issueData, $http, $q)
-              if ('subissues' in bind) {issue.fetchSubissues()}
+              if ('subissues' in bind && bind.subissues === true) {issue.fetchSubissues()}
 
               issues.push(issue)
             })
