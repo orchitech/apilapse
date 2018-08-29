@@ -77,7 +77,11 @@ function RedmineIssue(connection, bind, data, $http, $q) {
     })
   }
 
-  if ('estimated_hours' in data) this.data.size = data.estimated_hours
+  if ('spField' in connection.conf) {
+    if (data.customFields[connection.conf.spField]) {
+      this.data.size = data.customFields[connection.conf.spField];
+    }
+  }
 
   if ('assigned_to' in data) {
     this.data.assignee = data.assigned_to.name
