@@ -245,7 +245,7 @@ angular
           var totalSize = 0
           for (var i = 0; i < scope.board.issues.length; i++) {
             if (scope.board.issues[i].data.size) {
-              totalSize = totalSize + scope.board.issues[i].data.size
+              totalSize = totalSize + parseInt(scope.board.issues[i].data.size)
             }
           }
           scope.board.size = totalSize
