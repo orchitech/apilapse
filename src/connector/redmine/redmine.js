@@ -44,6 +44,7 @@ function RedmineIssue(connection, bind, data, $http, $q) {
   this.data = {
     title: data.subject,
     url:   connection.conf.baseUrl + 'issues/' + data.id,
+    status: data.status.name,
     prio:  0
   }
 

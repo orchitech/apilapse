@@ -91,7 +91,7 @@ html, body {
   display:  block;
   float:    left;
   width:    12rem;
-  height:   7rem;
+  height:   10rem;
   padding:  0.3rem 0.7rem;
   margin:   0;
 
@@ -186,14 +186,45 @@ html, body {
   padding:    0.2rem 1.2rem 1rem 1.3rem;
   background: wheat;
   box-shadow: 0.2rem 0.2rem 0.2rem #888888;
-  height:     6.4rem;
+  height:     9.4rem;
   overflow:   hidden;
 }
 
+.New .lapp {
+}
 
+.Proceed .lapp {
+}
 
+.Defined .lapp {
+}
 
+.Estimated .lapp {
+}
 
+.Approved .lapp {
+  background: #729fcf;
+}
+
+.Code .lapp {
+  background: #e85f5f;
+}
+
+.Rejected .lapp {
+  background: #73d216;
+}
+
+.Resolved .lapp {
+  background: #73d216;
+}
+
+.Tested .lapp {
+  background: #73d216;
+}
+
+.Closed .lapp {
+  background: #73d216;
+}
 
 /** Trying display as table **/
 .board {
