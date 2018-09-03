@@ -45,6 +45,7 @@ function RedmineIssue(connection, bind, data, $http, $q) {
     title: data.subject,
     url:   connection.conf.baseUrl + 'issues/' + data.id,
     status: data.status.name,
+    subissuesDone: 0,
     prio:  0
   }
 
@@ -157,6 +158,10 @@ RedmineIssue.prototype.fetchSubissues = function() {
             .getIssue(subissueData.id)
             .then(function(subissue) {
               issue.subissues.push(subissue)
+              var subissueStatus = subissue.source.original.status.id
+              if (subissueStatus === 3 || subissueStatus === 5 || subissueStatus === 6 || subissueStatus === 13) {
+                issue.data.subissuesDone++
+              }
             })
         })
       }
@@ -272,6 +277,8 @@ angular
         }
         if (!('includeSubprojects' in bind) || !bind.includeSubprojects) {
           params.subproject_id = "!*"
+        } else {
+          params.subproject_id = "*"
         }
 
         params.key    = connection.creds.key
@@ -316,7 +323,7 @@ angular
                 }
               }
               var issue = new RedmineIssue(connection, bind, issueData, $http, $q)
-              if ('subissues' in bind) {issue.fetchSubissues()}
+              if ('subissues' in bind && bind.subissues === true) {issue.fetchSubissues()}
 
               issues.push(issue)
             })
