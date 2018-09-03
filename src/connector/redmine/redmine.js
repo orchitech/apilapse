@@ -303,8 +303,7 @@ angular
               }
 
               var issue = new RedmineIssue(connection, bind, issueData, $http, $q)
-              if ('subissues' in bind && bind.subissues === true) {issue.fetchSubissues()
-                var x = issue.subissues}
+              if ('subissues' in bind && bind.subissues === true) {issue.fetchSubissues()}
 
               issues.push(issue)
             })
