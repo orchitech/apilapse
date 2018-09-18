@@ -202,6 +202,10 @@ RedmineIssue.prototype.move = function(newBind) {
       && newBind.status !== this.source.original.status.id) {
     put.status_id = newBind.status
   }
+  if ('assignedTo' in newBind
+      && newBind.assignedTo !== this.source.original.assigned_to.id) {
+    put.assigned_to_id = newBind.assignedTo
+  }
   if ('tracker' in newBind
       && newBind.tracker !== this.source.original.tracker.id) {
     put.tracker_id = newBind.tracker
@@ -272,6 +276,7 @@ angular
         if ('status'  in bind) {params.status_id  = bind.status}
         if ('tracker' in bind) {params.tracker_id = bind.tracker}
         if ('version' in bind) {params.fixed_version_id = bind.version}
+        if ('assignedTo' in bind) {params.assigned_to_id = bind.assignedTo}
         if ('sprintField' in connection.conf && 'sprint' in bind) {
           params["cf_" + connection.conf.sprintField] = bind.sprint
         }
