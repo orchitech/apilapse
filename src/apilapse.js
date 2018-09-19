@@ -105,6 +105,10 @@ angular
       replace:     true,
       link: function(scope, element, attrs) {
         for (var i = 0; i < scope.board.rows.length; i++) {
+          var selectedColumnSet = scope.board.rows[i].columnSet
+          var columns = scope.board.columnSets[selectedColumnSet]
+          scope.board.rows[i]["columns"] =  JSON.parse(JSON.stringify(columns))
+
           // Local board bind must override the inherited bind.
           scope.board.rows[i].bind = $.extend(
             true, {}, scope.board.bind, scope.board.rows[i].bind
