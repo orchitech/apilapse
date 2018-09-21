@@ -9,7 +9,7 @@
          "spField":11
       }
    },
-   "css":"css/status.css",
+   "css": [{"css":"style1.css"}, {"css":"style2.css"}],
    "bind":{
       "orchirm":{
          "project":"gts",
@@ -21,6 +21,7 @@
    "rows":[
       {
          "title":"Tomáš Arlt",
+         "style":{"background-color":"grey"},
          "columnSet":"myColumns",
          "bind":{
             "orchirm":{
@@ -30,6 +31,7 @@
       },
       {
          "title":"Ondřej Urbánek",
+         "style":{"background-color":"pink"},
          "columnSet":"myColumns",
          "bind":{
             "orchirm":{
@@ -39,6 +41,7 @@
       },
       {
          "title":"Lukáš Fessl",
+         "style":{"background-color":"yellow"},
          "columnSet":"myColumns",
          "bind":{
             "orchirm":{
@@ -51,6 +54,7 @@
       "myColumns":[
          {
             "title":"New",
+            "style":{"width":"11%"},
             "bind":{
                "orchirm":{
                   "status":1
@@ -59,6 +63,7 @@
          },
          {
             "title":"Feedback",
+            "style":{"width":"11%"},
             "bind":{
                "orchirm":{
                   "status":4
@@ -67,14 +72,17 @@
          },
          {
             "title":"Approved",
+            "style":{"width":"11%"},
             "bind":{
                "orchirm":{
                   "status":7
+
                }
             }
          },
          {
             "title":"Code Review",
+            "style":{"width":"11%"},
             "bind":{
                "orchirm":{
                   "status":15
@@ -83,6 +91,7 @@
          },
          {
             "title":"Resolved",
+            "style":{"width":"11%"},
             "bind":{
                "orchirm":{
                   "status":3
@@ -91,6 +100,7 @@
          },
          {
             "title":"Rejected",
+            "style":{"width":"11%"},
             "bind":{
                "orchirm":{
                   "status":6
@@ -99,6 +109,7 @@
          },
          {
             "title":"Tested",
+            "style":{"width":"11%"},
             "bind":{
                "orchirm":{
                   "status":13
@@ -107,6 +118,7 @@
          },
          {
             "title":"Closed",
+            "style":{"width":"11%"},
             "bind":{
                "orchirm":{
                   "status":5
