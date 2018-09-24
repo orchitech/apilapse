@@ -1,5 +1,5 @@
 <div class="boardcolumns">
-  <div class="boardcolumn" ng-repeat="board in board.columns">
+  <div class="boardcolumn" ng-style="board.style" ng-repeat="board in board.columns">
     <board class="board" board="board" />
   </div>
 </div>
