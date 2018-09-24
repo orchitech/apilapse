@@ -6,10 +6,16 @@
          "baseUrl":"https://redmine.orchitech.cz/",
          "prioField":27,
          "sprintField":12,
-         "spField":11
+         "spField":11,
+         "statusProgress": {
+           "15": 0.7,
+           "3": 0.8,
+           "5": 1,
+           "13": 1
+        }
       }
    },
-   "css": [{"css":"style1.css"}, {"css":"style2.css"}],
+   "css": "css/status.css",
    "bind":{
       "orchirm":{
          "project":"gts",
