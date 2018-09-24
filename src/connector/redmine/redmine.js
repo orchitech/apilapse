@@ -159,8 +159,10 @@ RedmineIssue.prototype.fetchSubissues = function() {
             .then(function(subissue) {
               issue.subissues.push(subissue)
               var subissueStatus = subissue.source.original.status.id
-              if (subissueStatus === 3 || subissueStatus === 5 || subissueStatus === 6 || subissueStatus === 13) {
-                issue.data.subissuesDone++
+              if (subissue.connection.conf.statusProgress !== undefined) {
+                if (subissue.connection.conf.statusProgress.hasOwnProperty(subissueStatus)) {
+                  issue.data.subissuesDone += subissue.connection.conf.statusProgress[subissueStatus.toString()]
+                }
               }
             })
         })
