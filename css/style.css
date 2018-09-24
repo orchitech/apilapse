@@ -190,42 +190,6 @@ html, body {
   overflow:   hidden;
 }
 
-.New .lapp {
-}
-
-.Proceed .lapp {
-}
-
-.Defined .lapp {
-}
-
-.Estimated .lapp {
-}
-
-.Approved .lapp {
-  background: #729fcf;
-}
-
-.Code .lapp {
-  background: #e85f5f;
-}
-
-.Rejected .lapp {
-  background: #73d216;
-}
-
-.Resolved .lapp {
-  background: #73d216;
-}
-
-.Tested .lapp {
-  background: #73d216;
-}
-
-.Closed .lapp {
-  background: #73d216;
-}
-
 /** Trying display as table **/
 .board {
   display: table;
