@@ -205,7 +205,7 @@ RedmineIssue.prototype.move = function(newBind) {
     put.status_id = newBind.status
   }
   if ('assignedTo' in newBind
-      && newBind.assignedTo !== this.source.original.assigned_to.id) {
+      && (this.source.original.assigned_to === undefined || newBind.assignedTo !== this.source.original.assigned_to.id)) {
     put.assigned_to_id = newBind.assignedTo
   }
   if ('tracker' in newBind
