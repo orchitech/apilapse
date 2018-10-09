@@ -91,7 +91,7 @@ html, body {
   display:  block;
   float:    left;
   width:    12rem;
-  height:   10rem;
+  height:   12rem;
   padding:  0.3rem 0.7rem;
   margin:   0;
 
@@ -186,7 +186,7 @@ html, body {
   padding:    0.2rem 1.2rem 1rem 1.3rem;
   background: wheat;
   box-shadow: 0.2rem 0.2rem 0.2rem #888888;
-  height:     9.4rem;
+  height:     11rem;
   overflow:   hidden;
 }
 
