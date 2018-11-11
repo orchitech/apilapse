@@ -288,28 +288,111 @@ angular
             }
           },
           orderChanged: function(event) {
-            var lastPrio = 0
-            if (scope.board.issues.length > event.dest.index + 1) {
-              lastPrio = scope.board.issues[event.dest.index + 1].data.prio
+            var prioAscending = false // TODO: Take from config
+            // Eventually configurable
+            var defaultPrioStep = 1.0
+            var minPrioStep = 0.01
+
+            // Board order vs. priorities example:
+            // meaning:  top -> higher -> lower -> bottom
+            // indexes:  0    1    2    3   4    5    6
+            // prioAsc:  1    2    3    4   null null null
+            // prioDesc: null null null 4   3    2    1
+
+            var defaultPrioInc = defaultPrioStep
+            if (prioAscending) {
+                defaultPrioInc = -defaultPrioStep
+            }
+            function prioGt(a, b) {
+              if (prioAscending && a > b + minPrioStep) {
+                return true
+              } else if (!prioAscending && a + minPrioStep < b) {
+                return true
+              }
+              return false
             }
 
-            // Loop from the moved item and to the top, ensuring that each issue has a higher
-            // priority than the one below.
-            for (var i = event.dest.index; i >= 0; i--) {
-              // If the issue above has a higher prio than the one below, just place this one in
-              // between and be done with it!
-              var newPrio;
+            // Window to do prioritizing in
+            var windowTopIdx = 0
+            var windowBottomIdx = scope.board.issues.length - 1
 
-              if (i > 0 && scope.board.issues[i - 1].data.prio > lastPrio) {
-                scope.board.issues[i].setPrio(
-                  lastPrio + (scope.board.issues[i - 1].data.prio - lastPrio) / 2
-                ).catch(function(error) {
-                  console.log('Something went wrong in prioritizing.  Should change back?')
-                })
+            // null-padded on top -> start on the first not-null index before destination, if present
+            if (!prioAscending) {
+              windowTopIdx = event.dest.index
+              for (var i = 0; i < event.dest.index; i++) {
+                if (scope.board.issues[i].data.prio !== null) {
+                  windowTopIdx = i
+                  break
+                }
+              }
+            }
+            // null-padded on bottom -> end on the last not-null index after destination, if present
+            if (prioAscending) {
+              windowBottomIdx = event.dest.index
+              for (var i = scope.board.issues.length - 1; i > event.dest.index; i--) {
+                if (scope.board.issues[i].data.prio !== null) {
+                  windowBottomIdx = i
+                  break
+                }
+              }
+            }
+
+            // all unset
+            if (windowTopIdx == windowBottomIdx) {
+              if (prioAscending) {
+                windowTopIdx = 0
+              } else {
+                windowBottomIdx = scope.board.issues.length - 1
+              }
+            }
+
+            console.log('windowTopIdx: ' + windowTopIdx)
+            console.log('windowBottomIdx: ' + windowBottomIdx)
+
+            var prios = new Array(scope.board.issues.length); // playground for changing priorities
+            var destIdx = event.dest.index;
+            for (var i = 0; i < scope.board.issues.length; i++) {
+              prios[i] = scope.board.issues[i].data.prio
+            }
+
+            // Start with the happy flow
+            if (destIdx > windowTopIdx && destIdx < windowBottomIdx
+                && prios[destIdx-1] !== null && prios[destIdx+1] !== null) {
+              prios[destIdx] = (prios[destIdx-1] + prios[destIdx+1]) / 2
+            } else {
+              prios[destIdx] = null;
+            }
+
+            // Pick a pivot value for a completely unordered board
+            var lastPrio = Math.floor((scope.board.issues.length + 1) / 2) * defaultPrioStep
+
+            for (var i = windowTopIdx; i <= windowBottomIdx; i++) {
+              if (prios[i] === null) {
+                continue;
+              }
+              if (i == windowTopIdx || prios[i - 1] == null || prioGt(prios[i], prios[i-1])) {
+                lastPrio = prios[i] + (i - windowTopIdx + 1) * defaultPrioInc
+                console.log("Window starting prio=" + lastPrio + "; based on prio [" + i + "]=" + prios[i])
                 break
               }
+            }
 
-              scope.board.issues[i].setPrio(++lastPrio)
+            // Do the maths and correct happy flow
+            for (var i = windowTopIdx; i <= windowBottomIdx; i++) {
+              if (prios[i] !== null && prioGt(prios[i], lastPrio)) {
+                lastPrio = prios[i]
+                continue
+              }
+              lastPrio -= defaultPrioInc
+              prios[i] = lastPrio
+            }
+
+            // Do the work
+            for (var i = windowTopIdx; i <= windowBottomIdx; i++) {
+              if (scope.board.issues[i].data.prio !== prios[i]) {
+                console.log("Setting board prio [" + i + "]=" + prios[i]);
+                scope.board.issues[i].setPrio(prios[i])
+              }
             }
           }
         };
