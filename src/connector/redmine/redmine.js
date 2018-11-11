@@ -294,7 +294,7 @@ angular
         params.limit  = limit
 
         if ('prioField' in connection.conf) {
-          params.sort  = 'cf_' + connection.conf.prioField + ':desc'
+          params.sort  = 'cf_' + connection.conf.prioField + ':asc'
         }
 
         console.log("Redmine params:", params, bind)

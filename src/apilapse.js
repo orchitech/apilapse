@@ -288,7 +288,7 @@ angular
             }
           },
           orderChanged: function(event) {
-            var prioAscending = false // TODO: Take from config
+            var prioAscending = true // TODO: Take from config
             // Eventually configurable
             var defaultPrioStep = 1.0
             var minPrioStep = 0.01
