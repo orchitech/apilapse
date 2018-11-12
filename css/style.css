@@ -47,6 +47,10 @@ html, body {
   list-style-type: none;
 }
 
+.issueId {
+  font-weight: bold;
+}
+
 .issues .error {
   background:    red;
   border:        2px solid black;
